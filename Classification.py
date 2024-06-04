@@ -53,7 +53,7 @@ def display_images_and_predictions(image_path, prediction, figsize=(20, 5)):
     plt.show()
 
 
-def Classification_CNN(image_path):
+def Classification_Resnet(image_path):
     images = load_and_preprocess_image(image_path)
     prediction = model.predict(images)
     predicted_labels = inv_class_mappings[np.argmax(prediction)]

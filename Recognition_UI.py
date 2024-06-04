@@ -15,8 +15,8 @@ from style_css import def_css_hitml
 from utils_web import save_uploaded_file, concat_results, load_default_image, get_camera_names
 import tempfile
 import os
-from Classification import Classification_CNN
-from Classification_Resnet import Classification_Resnet
+from Classification import Classification_Resnet
+from Classification_Resnet import Classification_CNN
 
 
 
@@ -93,7 +93,7 @@ class Detection_UI:
     def setup_sidebar(self):
 
         st.sidebar.header("识别目标配置")
-        page_names = ["实时摄像头识别","上传文件识别"]
+        page_names = ["上传文件识别"]
         self.page = st.sidebar.radio('选择识别配置',page_names)
         st.sidebar.write("目前选择的是:",self.page)
         
@@ -267,7 +267,8 @@ class Detection_UI:
                 if len(detInfo) > 0:
                     name, bbox, conf, use_time, p_label, cls_id = detInfo
                     label = '%s %.0f%%' % (p_label, conf * 100) 
-
+                    if (self.model_type_c == "CNN"):
+                        conf = 100
                     disp_res = ResultLogger()  
                     res = disp_res.concat_results(name, bbox, str(round(conf, 2)), str(round(use_time, 2)),p_label) 
                     self.table_placeholder.table(res) 
@@ -310,18 +311,6 @@ class Detection_UI:
         select_info = ["全部目标"]
         if(self.model_type_c == "CNN"):
             pred_label = Classification_CNN(img_path)
-            if pred_label == "Glioma":
-                p_label = "神经胶质瘤"
-            elif pred_label == "Meninigioma":
-                p_label = "脑（脊）膜瘤"
-            elif pred_label == "Notumor":
-                p_label = "正常"
-            elif pred_label == "Pituitary":
-                p_label = "垂体肿瘤"
-            else:
-                p_label = pred_label
-        elif(self.model_type_c == "ResNet-SNGP"):
-            pred_label = Classification_Resnet(img_path)
             if pred_label == "glioma":
                 p_label = "神经胶质瘤"
             elif pred_label == "meningioma":
@@ -332,7 +321,18 @@ class Detection_UI:
                 p_label = "垂体肿瘤"
             else:
                 p_label = pred_label
- 
+        elif(self.model_type_c == "ResNet-SNGP"):
+            pred_label = Classification_Resnet(img_path)
+            if pred_label == "Glioma":
+                p_label = "神经胶质瘤"
+            elif pred_label == "Meninigioma":
+                p_label = "脑（脊）膜瘤"
+            elif pred_label == "Notumor":
+                p_label = "正常"
+            elif pred_label == "Pituitary":
+                p_label = "垂体肿瘤"
+            else:
+                p_label = pred_label
         if det is not None and len(det):
             det_info = self.model.postprocess(pred)  
             if len(det_info):
@@ -343,7 +343,8 @@ class Detection_UI:
                 for info in det_info:
                     name, bbox, conf, cls_id = info['class_name'], info['bbox'], info['score'], info['class_id']
                     label = '%s %.0f%%' % (p_label, conf * 100)
-
+                    if (self.model_type_c == "CNN"):
+                        conf = 100
                     res = disp_res.concat_results(name, bbox, str(round(conf, 2)), str(round(use_time, 2)), p_label)
 
                     image = drawRectBox(image, bbox, alpha=0.2, addText=label, color=self.colors[cls_id])

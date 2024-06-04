@@ -249,7 +249,7 @@ def load_and_preprocess_image(image_path, image_shape=(256, 256)):
     img_array = np.expand_dims(img_array, axis=0) 
     return img_array
 
-def Classification_Resnet(image_path):
+def Classification_CNN(image_path):
     images = load_and_preprocess_image(image_path)
     prediction = r_model.predict(images)
     predicted_label = inv_class_mappings[np.argmax(prediction)]
