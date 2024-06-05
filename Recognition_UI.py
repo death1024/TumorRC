@@ -249,7 +249,7 @@ class Detection_UI:
                 cap.release()
 
             else:
-                st.warning("请选择摄像头或上传文件。")
+                st.warning("请上传文件。")
 
     def toggle_comboBox(self, frame_id):
 
