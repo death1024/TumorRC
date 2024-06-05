@@ -1,13 +1,10 @@
-[配置环境]
-请按照给定的python版本配置环境，否则可能会因依赖不兼容而出错
+[关于环境配置]
+请按照python 3.10版本配置环境，不然会依赖不兼容出错
 (1)使用anaconda新建python3.10环境:
 conda create -n env_rec python=3.10
-(2)激活创建的环境:
-conda activate env_rec
-(3)使用pip安装所需的依赖，可通过requirements.txt:
-pip install -r requirements.txt
+(2)通过Anaconda Navigator导入requirements.yaml文件，进行相关库的安装
 
 
-基于YOLO的肿瘤图像检测系统v1.0
-作者：LCY
+基于Resnet-sngp和yolo的肿瘤分类和识别辅助诊断系统
+作者：death1024
 github: https://github.com/death1024
