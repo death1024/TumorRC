@@ -1,10 +1,10 @@
-[配置环境]
-最好按照给定的python版本来，不然会因依赖不兼容出问题
+[关于环境配置]
+请按照python 3.10版本配置环境，不然会依赖不兼容出错
 (1)使用anaconda新建python3.10环境:
-conda create -n env python=3.10
-(2)在Anaconda Navigator中导入Tumorenv.yaml
+conda create -n env_rec python=3.10
+(2)通过Anaconda Navigator导入requirements.yaml文件，进行相关库的安装
 
 
-基于深度残差网络和yolo的肿瘤分类识别系统v1.0
-作者：李晨宇
+基于Resnet-sngp和yolo的肿瘤分类和识别辅助诊断系统
+作者：death1024
 github: https://github.com/death1024
